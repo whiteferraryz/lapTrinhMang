@@ -1,0 +1,628 @@
+[33mcommit aa5979f5fda51eebf9376f7a3c55a9e748e7ab58[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: whiteferraryz <thangdien888111@gmail.com>
+Date:   Tue Jun 17 00:42:50 2025 +0700
+
+    database của bà nè
+
+[1mdiff --git a/database b/database[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8a226f0[m
+[1m--- /dev/null[m
+[1m+++ b/database[m
+[36m@@ -0,0 +1,616 @@[m
+[32m+[m[32mCREATE DATABASE  IF NOT EXISTS `laptrinhmang` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;[m
+[32m+[m[32mUSE `laptrinhmang`;[m
+[32m+[m[32m-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Host: localhost    Database: laptrinhmang[m
+[32m+[m[32m-- ------------------------------------------------------[m
+[32m+[m[32m-- Server version	8.0.42[m
+[32m+[m
+[32m+[m[32m/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;[m
+[32m+[m[32m/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;[m
+[32m+[m[32m/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;[m
+[32m+[m[32m/*!50503 SET NAMES utf8 */;[m
+[32m+[m[32m/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;[m
+[32m+[m[32m/*!40103 SET TIME_ZONE='+00:00' */;[m
+[32m+[m[32m/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;[m
+[32m+[m[32m/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;[m
+[32m+[m[32m/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;[m
+[32m+[m[32m/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `admins`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `admins`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `admins` ([m
+[32m+[m[32m  `admin_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `user_id` int NOT NULL,[m
+[32m+[m[32m  `full_name` varchar(255) NOT NULL,[m
+[32m+[m[32m  `position` varchar(100) DEFAULT NULL,[m
+[32m+[m[32m  `last_activity` datetime DEFAULT NULL COMMENT 'Admin''s last activity time.',[m
+[32m+[m[32m  PRIMARY KEY (`admin_id`),[m
+[32m+[m[32m  UNIQUE KEY `user_id` (`user_id`),[m
+[32m+[m[32m  CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `answers`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `answers`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `answers` ([m
+[32m+[m[32m  `answer_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `question_id` int NOT NULL,[m
+[32m+[m[32m  `answer_content` text NOT NULL,[m
+[32m+[m[32m  `is_correct_answer` tinyint(1) NOT NULL DEFAULT '0',[m
+[32m+[m[32m  `answer_order` int DEFAULT NULL COMMENT 'Display order of the answer (e.g., A, B, C, D).',[m
+[32m+[m[32m  PRIMARY KEY (`answer_id`),[m
+[32m+[m[32m  KEY `question_id` (`question_id`),[m
+[32m+[m[32m  CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `class_enrollments`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `class_enrollments`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `class_enrollments` ([m
+[32m+[m[32m  `student_id` int NOT NULL,[m
+[32m+[m[32m  `class_id` int NOT NULL,[m
+[32m+[m[32m  `enrollment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `enrollment_status` enum('Đã đăng ký','Đã hủy','Đã hoàn thành','Đang chờ') NOT NULL,[m
+[32m+[m[32m  `final_grade` decimal(5,2) DEFAULT NULL COMMENT 'Student''s final grade in this class.',[m
+[32m+[m[32m  PRIMARY KEY (`student_id`,`class_id`),[m
+[32m+[m[32m  KEY `class_id` (`class_id`),[m
+[32m+[m[32m  CONSTRAINT `class_enrollments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),[m
+[32m+[m[32m  CONSTRAINT `class_enrollments_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `classes`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `classes`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `classes` ([m
+[32m+[m[32m  `class_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `class_name` varchar(255) NOT NULL,[m
+[32m+[m[32m  `course_id` int NOT NULL,[m
+[32m+[m[32m  `lecturer_id` int NOT NULL,[m
+[32m+[m[32m  `room_location` varchar(50) DEFAULT NULL COMMENT 'Physical/virtual classroom name.',[m
+[32m+[m[32m  `schedule` varchar(200) DEFAULT NULL COMMENT 'Example: "Tuesday (19:00-21:00), Thursday (19:00-21:00)".',[m
+[32m+[m[32m  `start_date` date DEFAULT NULL,[m
+[32m+[m[32m  `end_date` date DEFAULT NULL,[m
+[32m+[m[32m  `max_students` int DEFAULT NULL,[m
+[32m+[m[32m  `class_status` enum('Sắp khai giảng','Đang học','Đã kết thúc','Hủy') NOT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`class_id`),[m
+[32m+[m[32m  KEY `course_id` (`course_id`),[m
+[32m+[m[32m  KEY `lecturer_id` (`lecturer_id`),[m
+[32m+[m[32m  CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),[m
+[32m+[m[32m  CONSTRAINT `classes_ibfk_2` FOREIGN KEY (`lecturer_id`) REFERENCES `teachers` (`teacher_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `complaints`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `complaints`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `complaints` ([m
+[32m+[m[32m  `complaint_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `sender_user_id` int NOT NULL,[m
+[32m+[m[32m  `title` varchar(255) NOT NULL,[m
+[32m+[m[32m  `complaint_content` text NOT NULL,[m
+[32m+[m[32m  `sent_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `processing_status` enum('Đang chờ','Đang xử lý','Đã giải quyết','Từ chối') NOT NULL,[m
+[32m+[m[32m  `handler_user_id` int DEFAULT NULL COMMENT 'User (Admin or Teacher) handling the complaint.',[m
+[32m+[m[32m  `handling_feedback` text,[m
+[32m+[m[32m  `handled_at` datetime DEFAULT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`complaint_id`),[m
+[32m+[m[32m  KEY `sender_user_id` (`sender_user_id`),[m
+[32m+[m[32m  KEY `handler_user_id` (`handler_user_id`),[m
+[32m+[m[32m  CONSTRAINT `complaints_ibfk_1` FOREIGN KEY (`sender_user_id`) REFERENCES `users` (`user_id`),[m
+[32m+[m[32m  CONSTRAINT `complaints_ibfk_2` FOREIGN KEY (`handler_user_id`) REFERENCES `users` (`user_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `courses`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `courses`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `courses` ([m
+[32m+[m[32m  `course_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `course_name` varchar(255) NOT NULL,[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  `subject_id` int NOT NULL,[m
+[32m+[m[32m  `teacher_in_charge_id` int DEFAULT NULL,[m
+[32m+[m[32m  `start_date` date DEFAULT NULL,[m
+[32m+[m[32m  `end_date` date DEFAULT NULL,[m
+[32m+[m[32m  `tuition_fee` decimal(10,2) DEFAULT NULL,[m
+[32m+[m[32m  `course_status` enum('Sắp khai giảng','Đang diễn ra','Đã kết thúc','Tạm dừng') NOT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`course_id`),[m
+[32m+[m[32m  KEY `subject_id` (`subject_id`),[m
+[32m+[m[32m  KEY `teacher_in_charge_id` (`teacher_in_charge_id`),[m
+[32m+[m[32m  CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`),[m
+[32m+[m[32m  CONSTRAINT `courses_ibfk_2` FOREIGN KEY (`teacher_in_charge_id`) REFERENCES `teachers` (`teacher_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `difficulty_levels`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `difficulty_levels`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `difficulty_levels` ([m
+[32m+[m[32m  `level_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `level_name` varchar(50) NOT NULL COMMENT 'Example: ''Easy'', ''Medium'', ''Hard''',[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  PRIMARY KEY (`level_id`),[m
+[32m+[m[32m  UNIQUE KEY `level_name` (`level_name`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `documents`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `documents`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `documents` ([m
+[32m+[m[32m  `document_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `title` varchar(255) NOT NULL,[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  `file_path` varchar(255) NOT NULL COMMENT 'File storage path on the server.',[m
+[32m+[m[32m  `document_type` enum('Bài giảng','Đề ôn tập','Video','Khác') DEFAULT NULL,[m
+[32m+[m[32m  `subject_id` int NOT NULL,[m
+[32m+[m[32m  `uploader_teacher_id` int NOT NULL,[m
+[32m+[m[32m  `uploaded_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `download_count` int NOT NULL DEFAULT '0',[m
+[32m+[m[32m  PRIMARY KEY (`document_id`),[m
+[32m+[m[32m  KEY `subject_id` (`subject_id`),[m
+[32m+[m[32m  KEY `uploader_teacher_id` (`uploader_teacher_id`),[m
+[32m+[m[32m  CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`),[m
+[32m+[m[32m  CONSTRAINT `documents_ibfk_2` FOREIGN KEY (`uploader_teacher_id`) REFERENCES `teachers` (`teacher_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `exam_details`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `exam_details`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `exam_details` ([m
+[32m+[m[32m  `exam_id` int NOT NULL,[m
+[32m+[m[32m  `question_id` int NOT NULL,[m
+[32m+[m[32m  `question_order_in_exam` int NOT NULL COMMENT 'Order of the question in the specific exam.',[m
+[32m+[m[32m  `score_for_question` decimal(5,2) NOT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`exam_id`,`question_id`),[m
+[32m+[m[32m  KEY `question_id` (`question_id`),[m
+[32m+[m[32m  CONSTRAINT `exam_details_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE CASCADE,[m
+[32m+[m[32m  CONSTRAINT `exam_details_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `exam_schedules`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `exam_schedules`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `exam_schedules` ([m
+[32m+[m[32m  `schedule_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `exam_id` int NOT NULL,[m
+[32m+[m[32m  `class_id` int DEFAULT NULL,[m
+[32m+[m[32m  `start_time` datetime NOT NULL,[m
+[32m+[m[32m  `end_time` datetime NOT NULL,[m
+[32m+[m[32m  `location` varchar(255) DEFAULT NULL COMMENT 'Can be a URL for a virtual exam room.',[m
+[32m+[m[32m  `proctor_teacher_id` int DEFAULT NULL,[m
+[32m+[m[32m  `notes` text,[m
+[32m+[m[32m  `schedule_status` enum('Sắp diễn ra','Đang diễn ra','Đã kết thúc','Đã hủy') NOT NULL,[m
+[32m+[m[32m  `access_code` varchar(50) DEFAULT NULL COMMENT 'Code for students to enter the exam.',[m
+[32m+[m[32m  PRIMARY KEY (`schedule_id`),[m
+[32m+[m[32m  UNIQUE KEY `access_code` (`access_code`),[m
+[32m+[m[32m  KEY `exam_id` (`exam_id`),[m
+[32m+[m[32m  KEY `class_id` (`class_id`),[m
+[32m+[m[32m  KEY `proctor_teacher_id` (`proctor_teacher_id`),[m
+[32m+[m[32m  CONSTRAINT `exam_schedules_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`),[m
+[32m+[m[32m  CONSTRAINT `exam_schedules_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),[m
+[32m+[m[32m  CONSTRAINT `exam_schedules_ibfk_3` FOREIGN KEY (`proctor_teacher_id`) REFERENCES `teachers` (`teacher_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `exam_statuses`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `ex                        am_statuses`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `exam_statuses` ([m
+[32m+[m[32m  `status_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `status_name` varchar(50) NOT NULL COMMENT 'Example: ''In Progress'', ''Submitted'', ''Graded'', ''Cancelled''',[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  PRIMARY KEY (`status_id`),[m
+[32m+[m[32m  UNIQUE KEY `status_name` (`status_name`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `exams`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `exams`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `exams` ([m
+[32m+[m[32m  `exam_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `exam_name` varchar(255) NOT NULL,[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  `subject_id` int NOT NULL,[m
+[32m+[m[32m  `creator_teacher_id` int NOT NULL,[m
+[32m+[m[32m  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `duration_minutes` int NOT NULL COMMENT 'Duration in minutes.',[m
+[32m+[m[32m  `max_score` decimal(5,2) NOT NULL COMMENT 'Maximum total score for the exam.',[m
+[32m+[m[32m  `approval_status` enum('Đang chờ duyệt','Đã duyệt','Từ chối') NOT NULL COMMENT 'Approval status by admin.',[m
+[32m+[m[32m  `is_public` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Is the exam publicly viewable?',[m
+[32m+[m[32m  `difficulty_level_id` int NOT NULL,[m
+[32m+[m[32m  `number_of_questions` int NOT NULL COMMENT 'Số lượng câu hỏi trong đề thi',[m
+[32m+[m[32m  `points_per_question` decimal(5,2) NOT NULL COMMENT 'Điểm số cho mỗi câu hỏi',[m
+[32m+[m[32m  PRIMARY KEY (`exam_id`),[m
+[32m+[m[32m  KEY `subject_id` (`subject_id`),[m
+[32m+[m[32m  KEY `creator_teacher_id` (`creator_teacher_id`),[m
+[32m+[m[32m  KEY `difficulty_level_id` (`difficulty_level_id`),[m
+[32m+[m[32m  CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`),[m
+[32m+[m[32m  CONSTRAINT `exams_ibfk_2` FOREIGN KEY (`creator_teacher_id`) REFERENCES `teachers` (`teacher_id`),[m
+[32m+[m[32m  CONSTRAINT `exams_ibfk_3` FOREIGN KEY (`difficulty_level_id`) REFERENCES `difficulty_levels` (`level_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `login_history`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `login_history`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `login_history` ([m
+[32m+[m[32m  `log_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `user_id` int NOT NULL,[m
+[32m+[m[32m  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `ip_address` varchar(45) DEFAULT NULL,[m
+[32m+[m[32m  `device_info` varchar(255) DEFAULT NULL COMMENT 'Information about browser/OS.',[m
+[32m+[m[32m  `status` enum('Thành công','Thất bại') NOT NULL,[m
+[32m+[m[32m  `failure_reason` text COMMENT 'Reason for failure (wrong password, account locked...).',[m
+[32m+[m[32m  PRIMARY KEY (`log_id`),[m
+[32m+[m[32m  KEY `user_id` (`user_id`),[m
+[32m+[m[32m  CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `notification_recipients`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `notification_recipients`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `notification_recipients` ([m
+[32m+[m[32m  `notification_id` int NOT NULL,[m
+[32m+[m[32m  `user_id` int NOT NULL,[m
+[32m+[m[32m  `is_read` tinyint(1) NOT NULL DEFAULT '0',[m
+[32m+[m[32m  `read_at` datetime DEFAULT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`notification_id`,`user_id`),[m
+[32m+[m[32m  KEY `user_id` (`user_id`),[m
+[32m+[m[32m  CONSTRAINT `notification_recipients_ibfk_1` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`notification_id`) ON DELETE CASCADE,[m
+[32m+[m[32m  CONSTRAINT `notification_recipients_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `notification_targets`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `notification_targets`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `notification_targets` ([m
+[32m+[m[32m  `target_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `target_name` varchar(50) NOT NULL COMMENT 'Example: ''All'', ''Students'', ''Teachers'', ''Admins''',[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  PRIMARY KEY (`target_id`),[m
+[32m+[m[32m  UNIQUE KEY `target_name` (`target_name`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `notifications`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `notifications`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `notifications` ([m
+[32m+[m[32m  `notification_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `title` varchar(255) NOT NULL,[m
+[32m+[m[32m  `content` text NOT NULL,[m
+[32m+[m[32m  `creator_user_id` int NOT NULL COMMENT 'User (Admin/Teacher) who created the notification.',[m
+[32m+[m[32m  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `notification_type` enum('Chung','Hệ thống','Khóa học','Lịch thi','Điểm') NOT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`notification_id`),[m
+[32m+[m[32m  KEY `creator_user_id` (`creator_user_id`),[m
+[32m+[m[32m  CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `users` (`user_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `questions`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `questions`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `questions` ([m
+[32m+[m[32m  `question_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `question_content` text NOT NULL,[m
+[32m+[m[32m  `question_type` enum('Trắc nghiệm','Tự luận','Điền vào chỗ trống') NOT NULL COMMENT 'Keep ENUM here as the number of question types is usually fixed.',[m
+[32m+[m[32m  `difficulty_level_id` int NOT NULL,[m
+[32m+[m[32m  `subject_id` int NOT NULL,[m
+[32m+[m[32m  `creator_teacher_id` int NOT NULL,[m
+[32m+[m[32m  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `answer_explanation` text COMMENT 'Explanation for the correct answer.',[m
+[32m+[m[32m  PRIMARY KEY (`question_id`),[m
+[32m+[m[32m  KEY `difficulty_level_id` (`difficulty_level_id`),[m
+[32m+[m[32m  KEY `subject_id` (`subject_id`),[m
+[32m+[m[32m  KEY `creator_teacher_id` (`creator_teacher_id`),[m
+[32m+[m[32m  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`difficulty_level_id`) REFERENCES `difficulty_levels` (`level_id`),[m
+[32m+[m[32m  CONSTRAINT `questions_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`),[m
+[32m+[m[32m  CONSTRAINT `questions_ibfk_3` FOREIGN KEY (`creator_teacher_id`) REFERENCES `teachers` (`teacher_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `roles`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `roles`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `roles` ([m
+[32m+[m[32m  `role_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `role_name` varchar(50) NOT NULL COMMENT 'Example: ''student'', ''teacher'', ''admin''',[m
+[32m+[m[32m  `description` text COMMENT 'Role description',[m
+[32m+[m[32m  PRIMARY KEY (`role_id`),[m
+[32m+[m[32m  UNIQUE KEY `role_name` (`role_name`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `student_answers`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `student_answers`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `student_answers` ([m
+[32m+[m[32m  `student_answer_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `student_exam_id` int NOT NULL,[m
+[32m+[m[32m  `question_id` int NOT NULL,[m
+[32m+[m[32m  `answer_text` text COMMENT 'Answer content (for essay, fill in the blank).',[m
+[32m+[m[32m  `selected_answer_id` int DEFAULT NULL COMMENT 'ID of the chosen answer (only for multiple choice).',[m
+[32m+[m[32m  `achieved_score` decimal(5,2) DEFAULT NULL,[m
+[32m+[m[32m  `is_graded` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Has this question been graded?',[m
+[32m+[m[32m  `answered_at` datetime DEFAULT NULL COMMENT 'Time the student answered this question.',[m
+[32m+[m[32m  `is_correct_submission` tinyint(1) DEFAULT NULL COMMENT 'Kết quả đúng/sai của câu trả lời này',[m
+[32m+[m[32m  PRIMARY KEY (`student_answer_id`),[m
+[32m+[m[32m  KEY `student_exam_id` (`student_exam_id`),[m
+[32m+[m[32m  KEY `question_id` (`question_id`),[m
+[32m+[m[32m  KEY `selected_answer_id` (`selected_answer_id`),[m
+[32m+[m[32m  CONSTRAINT `student_answers_ibfk_1` FOREIGN KEY (`student_exam_id`) REFERENCES `student_exams` (`student_exam_id`) ON DELETE CASCADE,[m
+[32m+[m[32m  CONSTRAINT `student_answers_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`),[m
+[32m+[m[32m  CONSTRAINT `student_answers_ibfk_3` FOREIGN KEY (`selected_answer_id`) REFERENCES `answers` (`answer_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `student_exams`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `student_exams`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `student_exams` ([m
+[32m+[m[32m  `student_exam_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `student_id` int NOT NULL,[m
+[32m+[m[32m  `exam_id` int NOT NULL,[m
+[32m+[m[32m  `schedule_id` int DEFAULT NULL,[m
+[32m+[m[32m  `attempt_start_time` datetime NOT NULL,[m
+[32m+[m[32m  `attempt_end_time` datetime DEFAULT NULL COMMENT 'Submission time.',[m
+[32m+[m[32m  `score` decimal(5,2) DEFAULT NULL,[m
+[32m+[m[32m  `status_id` int NOT NULL,[m
+[32m+[m[32m  `ip_address` varchar(45) DEFAULT NULL COMMENT 'Student''s IP address.',[m
+[32m+[m[32m  `screen_monitoring` tinyint(1) DEFAULT '0' COMMENT 'Flag for monitoring feature.',[m
+[32m+[m[32m  `webcam_monitoring` tinyint(1) DEFAULT '0' COMMENT 'Flag for monitoring feature.',[m
+[32m+[m[32m  `identity_verified` tinyint(1) DEFAULT '0' COMMENT 'Flag for verification feature.',[m
+[32m+[m[32m  `submission_time` datetime DEFAULT NULL COMMENT 'Actual submission time (can differ from attempt_end_time if submitted early).',[m
+[32m+[m[32m  `total_correct_answers` int DEFAULT NULL COMMENT 'Tổng số câu trả lời đúng của học sinh',[m
+[32m+[m[32m  `is_completed` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Trạng thái hoàn thành bài thi',[m
+[32m+[m[32m  `student_exam_rank` int DEFAULT NULL COMMENT 'Thứ hạng của học sinh trong bài thi (đã đổi tên từ rank để tránh từ khóa)',[m
+[32m+[m[32m  PRIMARY KEY (`student_exam_id`),[m
+[32m+[m[32m  KEY `student_id` (`student_id`),[m
+[32m+[m[32m  KEY `exam_id` (`exam_id`),[m
+[32m+[m[32m  KEY `schedule_id` (`schedule_id`),[m
+[32m+[m[32m  KEY `status_id` (`status_id`),[m
+[32m+[m[32m  CONSTRAINT `student_exams_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),[m
+[32m+[m[32m  CONSTRAINT `student_exams_ibfk_2` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`),[m
+[32m+[m[32m  CONSTRAINT `student_exams_ibfk_3` FOREIGN KEY (`schedule_id`) REFERENCES `exam_schedules` (`schedule_id`),[m
+[32m+[m[32m  CONSTRAINT `student_exams_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `exam_statuses` (`status_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `students`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `students`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `students` ([m
+[32m+[m[32m  `student_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `user_id` int NOT NULL,[m
+[32m+[m[32m  `student_code` varchar(50) DEFAULT NULL,[m
+[32m+[m[32m  `full_name` varchar(255) NOT NULL,[m
+[32m+[m[32m  `date_of_birth` date DEFAULT NULL,[m
+[32m+[m[32m  `gender` enum('Nam','Nữ','Khác') DEFAULT NULL,[m
+[32m+[m[32m  `address` varchar(255) DEFAULT NULL,[m
+[32m+[m[32m  `phone_number` varchar(20) DEFAULT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`student_id`),[m
+[32m+[m[32m  UNIQUE KEY `user_id` (`user_id`),[m
+[32m+[m[32m  UNIQUE KEY `student_code` (`student_code`),[m
+[32m+[m[32m  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `subjects`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `subjects`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `subjects` ([m
+[32m+[m[32m  `subject_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `subject_name` varchar(100) NOT NULL,[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  `subject_code` varchar(20) DEFAULT NULL COMMENT 'Subject code (e.g., IT101, MA203).',[m
+[32m+[m[32m  PRIMARY KEY (`subject_id`),[m
+[32m+[m[32m  UNIQUE KEY `subject_name` (`subject_name`),[m
+[32m+[m[32m  UNIQUE KEY `subject_code` (`subject_code`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `system_error_reports`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `system_error_reports`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `system_error_reports` ([m
+[32m+[m[32m  `error_report_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `reporter_user_id` int DEFAULT NULL COMMENT 'Can be NULL if error is automatic or user is not logged in.',[m
+[32m+[m[32m  `error_title` varchar(255) NOT NULL,[m
+[32m+[m[32m  `error_description` text NOT NULL,[m
+[32m+[m[32m  `error_occurrence_time` datetime DEFAULT NULL,[m
+[32m+[m[32m  `reported_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `error_status` enum('Mới','Đang xử lý','Đã khắc phục','Đã đóng','Không tái hiện') NOT NULL,[m
+[32m+[m[32m  `handler_admin_id` int DEFAULT NULL,[m
+[32m+[m[32m  `admin_notes` text,[m
+[32m+[m[32m  `priority` enum('Thấp','Trung bình','Cao','Nghiêm trọng') DEFAULT NULL,[m
+[32m+[m[32m  PRIMARY KEY (`error_report_id`),[m
+[32m+[m[32m  KEY `reporter_user_id` (`reporter_user_id`),[m
+[32m+[m[32m  KEY `handler_admin_id` (`handler_admin_id`),[m
+[32m+[m[32m  CONSTRAINT `system_error_reports_ibfk_1` FOREIGN KEY (`reporter_user_id`) REFERENCES `users` (`user_id`),[m
+[32m+[m[32m  CONSTRAINT `system_error_reports_ibfk_2` FOREIGN KEY (`handler_admin_id`) REFERENCES `admins` (`admin_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `system_parameters`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `system_parameters`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `system_parameters` ([m
+[32m+[m[32m  `parameter_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `parameter_name` varchar(100) NOT NULL COMMENT 'Example: ''MAX_LOGIN_ATTEMPTS'', ''DEFAULT_EXAM_DURATION''.',[m
+[32m+[m[32m  `parameter_value` text,[m
+[32m+[m[32m  `description` text,[m
+[32m+[m[32m  `parameter_type` enum('Cấu hình','Giới hạn','Thống kê') DEFAULT NULL COMMENT 'Parameter classification.',[m
+[32m+[m[32m  PRIMARY KEY (`parameter_id`),[m
+[32m+[m[32m  UNIQUE KEY `parameter_name` (`parameter_name`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `teachers`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `teachers`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `teachers` ([m
+[32m+[m[32m  `teacher_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `user_id` int NOT NULL,[m
+[32m+[m[32m  `teacher_code` varchar(50) DEFAULT NULL,[m
+[32m+[m[32m  `full_name` varchar(255) NOT NULL,[m
+[32m+[m[32m  `specialization` varchar(100) DEFAULT NULL,[m
+[32m+[m[32m  `degree` varchar(50) DEFAULT NULL COMMENT 'Example: Master, PhD',[m
+[32m+[m[32m  `private_phone_number` varchar(20) DEFAULT NULL,[m
+[32m+[m[32m  `contact_email` varchar(255) DEFAULT NULL COMMENT 'Alternative contact email, not the main login email.',[m
+[32m+[m[32m  PRIMARY KEY (`teacher_id`),[m
+[32m+[m[32m  UNIQUE KEY `user_id` (`user_id`),[m
+[32m+[m[32m  UNIQUE KEY `teacher_code` (`teacher_code`),[m
+[32m+[m[32m  CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m
+[32m+[m[32m--[m
+[32m+[m[32m-- Table structure for table `users`[m
+[32m+[m[32m--[m
+[32m+[m
+[32m+[m[32mDROP TABLE IF EXISTS `users`;[m
+[32m+[m[32m/*!40101 SET @saved_cs_client     = @@character_set_client */;[m
+[32m+[m[32m/*!50503 SET character_set_client = utf8mb4 */;[m
+[32m+[m[32mCREATE TABLE `users` ([m
+[32m+[m[32m  `user_id` int NOT NULL AUTO_INCREMENT,[m
+[32m+[m[32m  `username` varchar(100) NOT NULL,[m
+[32m+[m[32m  `password_hash` varchar(255) NOT NULL COMMENT 'Use strong hashing algorithms (Bcrypt, Argon2) to store passwords securely.',[m
+[32m+[m[32m  `email` varchar(255) NOT NULL,[m
+[32m+[m[32m  `role_id` int NOT NULL,[m
+[32m+[m[32m  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,[m
+[32m+[m[32m  `last_login` datetime DEFAULT NULL,[m
+[32m+[m[32m  `is_active` tinyint(1) NOT NULL DEFAULT '1',[m
+[32m+[m[32m  `is_verified_email` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Trạng thái xác thực email bằng OTP',[m
+[32m+[m[32m  `otp_code` varchar(10) DEFAULT NULL COMMENT 'Mã OTP tạm thời',[m
+[32m+[m[32m  `otp_created_at` datetime DEFAULT NULL COMMENT 'Thời gian mã OTP được tạo, dùng để kiểm tra thời gian hết hạn',[m
+[32m+[m[32m  PRIMARY KEY (`user_id`),[m
+[32m+[m[32m  UNIQUE KEY `username` (`username`),[m
+[32m+[m[32m  UNIQUE KEY `email` (`email`),[m
+[32m+[m[32m  KEY `role_id` (`role_id`),[m
+[32m+[m[32m  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`)[m
+[32m+[m[32m) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;[m
+[32m+[m[32m/*!40101 SET character_set_client = @saved_cs_client */;[m
+[32m+[m[32m/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;[m
+[32m+[m
+[32m+[m[32m/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;[m
+[32m+[m[32m/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;[m
+[32m+[m[32m/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;[m
+[32m+[m[32m/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;[m
+[32m+[m[32m/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;[m
+[32m+[m[32m/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;[m
+[32m+[m[32m/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;[m
+[32m+[m
+[32m+[m[32m-- Dump completed on 2025-06-16 16:29:12[m
